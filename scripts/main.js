@@ -1,99 +1,148 @@
-console.log("Andrew El-Masry");
-console.log(" "/*space*/);
+(function() {
 
-/*This is the _.object function
-The input type are arrays. The _.object takes arrays, and turns them into objects.
+	// Setup my Main Object
+	var root = this;
+	var tim = {};
+
+	// Set `tim` as global
+	root.tim = tim;
+  
 
 
-*/
 
-var ironYard = ["Tim","Wendy","Richard", "Chelsea", "Emory", "Victoria", "John", "Joanna","Max"];
-var age = ["30yrs", "25yrs", "24yrs", "23yrs", "22yrs", "31yrs", "29yrs", "35yrs", "27yrs"];
-var wendy=[];
+	// Function will return a new array
+	// Take two parameters
+	tim.map = function (arr, funct) {
+		if ( Array.isArray(arr) ) {
+			if (arr.length > 0) {
+				var res = [], i;
+				for (i = 0; i < arr.length; i++){
+					res[i] = funct(arr[i]);
+				}
+				return res;
+			}
+			return [];
+		} else {
+			return console.log('This is not an array');
+		}
+	};
 
- wendy.object = function( ironYard, age) {
-    if (ironYard == null) return {};
+	// Get Current Time
+	// From Underscorejs.org
+	tim.now = function (arr) {
+		return new Date().getTime();
+	};
+
+	// Greeting Function
+	tim.greeting = function (message) {
+
+		// Check for Time of Day
+		var time = new Date(),
+				initial_greeting = '',
+				time_hours = time.getHours(),
+				final_greeting;
+
+		if (time_hours < 12) {
+			initial_greeting = 'Good Morning';
+		} else if (time_hours >= 12 && time_hours <= 17) {
+			initial_greeting = 'Good Afternoon';
+		} else if (time_hours > 17 && time_hours <= 24) {
+			initial_greeting = 'Good Evening';
+		}
+
+		final_greeting = (message != null) ? initial_greeting + ', ' + message : initial_greeting;
+
+		return final_greeting;
+	};
+
+	// Random Function
+	// From Underscorejs.org
+	tim.random = function (min, max) {
+			if (max == null) {
+				max = min;
+				min = 0;
+			}
+	    return min + Math.floor(Math.random() * (max - min + 1));
+	};
+
+}());
+
+var test1=["1","2","3","4"];
+var test2=["5","6","7","8"];
+
+(function() {
+
+var root = this;
+var andrew=[];
+root.andrew = andrew;
+
+
+ andrew.object = function( arr, contentOfList) {
+    if (arr== null) {
+      return {};
+    };
+
     var result = {};
 
-    for (var i = 0, length = ironYard.length; i < length; i++) {
-      if (age) {
+    for (var i = 0, length = arr.length; i < length; i++) {
+      if (contentOfList) {
 
-        result[ironYard[i]] = age[i];
+        result[arr[i]] = contentOfList[i];
       }
 
-/*This else statement declares that if age is null, zero or falsey, then it will return the first */
 
       else {
-        result[ironYard[i][0]] = ironYard[i][1];
+        result[arr[i][0]] = contentOfList[i][1];
       }
     }
     return result;
   };
 
-  var objectToArray= wendy.object(ironYard,age);
-
-  console.log("This is parallel to the _.object method.");
-  console.log("This method turns an array into an object");
-  console.log(objectToArray);
-  console.log(" "/*space*/);
 
 
+andrew.first = function(arr, num) {
+    var firstValue =arr[0];
 
-/*.....................This is the _.first..........................*/
+    if (arr == null){
+      return "This is not an array! Or the array is emply";
+      }
 
-var n=5;
+    if (num === null,0){
+      return "Must be a number greater than 0";
+      }
 
-wendy.first = function(ironYard, n) {
-    if (ironYard == null) return void 0;
-    if (n == null) return ironYard[0];
-    if (n < 0) return [];
-    return Array.prototype.slice.call(ironYard,0, n);
+    if (num < 0){
+      return "Must be a number greater than 0";
+      }
+
+      return Array.prototype.slice.call(arr,0, num);
   };
-    console.log("This is parallel to the _.first method.");
-    console.log("This method returns the first 'n' numbers in the array");
-    console.log("In this case n=5, so it will return the first 5 strings");
-    console.log(wendy.first(ironYard,n));
-    console.log(" "/*space*/);
-
-/*.....................This is the _.first..........................*/
-
-var andrew = {}
-var initailValue=0;
-var endingValue=20;
-var incriment=5;
-
-andrew.range = function(initailValue, endingValue, incriment) {
-    if (arguments.length <= 1) {
-      endingValue = initailValue || 0;
-      initailValue = 0;
-    }
-    incriment = incriment || 1;
-
-    var length = Math.max(Math.ceil((endingValue - initailValue) / incriment), 0);
-    var range = Array(length);
-
-    for (var idx = 0; idx < length; idx++, initailValue += incriment) {
-      range[idx] = initailValue;
-    }
-
-    return range;
-  };
-
-console.log("This is parallel to the _.range method.");
-console.log("In this case the range was from 0 to 20, incrimenting by 5");
-console.log(andrew.range(initailValue,endingValue, incriment));
-console.log(" "/*space*/);
 
 
-/*.....................This is the _.size..........................*/
+andrew.last = function(arr, num) {
 
-var intArray = [1,2,3,4,5];
+    if (arr == null){
+      return "This is not an array! Or the array is emply";
+      }
 
-andrew.size = function (arraySize) {
-  return(arraySize.length);
-};
+    if (num === null,0){
+      return "Must be a number greater than 0";
+      }
 
-var output=andrew.size(intArray);
-console.log("This is parallel to the _.size method.");
-console.log("This method returns the size of an array");
-console.log(output);
+    if (num < 0){
+      return "Must be a number greater than 0";
+      }
+
+      return Array.prototype.slice.call(arr, Math.max(arr.length - num, 0));
+  };
+
+andrew.addTim = function(arr) {
+
+   var result =[];
+   for (var i = 0, length = arr.length; i < length; i++) {
+      result=arr + " " +"Tim is awesome";
+      return result;
+      }
+      };
+
+}());
